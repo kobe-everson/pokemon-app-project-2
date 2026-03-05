@@ -36,7 +36,10 @@ export default function PokemonDetail() {
   }
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-lg shadow p-6">
+    <div className="max-w-xl mx-auto border bg-base-200 rounded-lg shadow-2xl py-4">
+      <button className="border-black rounded-2xl px-2 text-right bg-amber-800 text-white cursor-pointer">
+        Add to Team
+      </button>
       <div className="flex flex-col items-center">
         <img
           src={pokemon.sprites.other["official-artwork"].front_default}
@@ -46,13 +49,13 @@ export default function PokemonDetail() {
 
         <h2 className="text-3xl font-bold capitalize mb-2">{pokemon.name}</h2>
 
-        <p className="text-gray-600 mb-4">ID: {pokemon.id}</p>
+        <p className="mb-4">ID: {pokemon.id}</p>
 
         <div className="flex gap-2 mb-6">
           {pokemon.types.map((t) => (
             <span
               key={t.type.name}
-              className="px-3 py-1 bg-gray-200 rounded-full text-sm capitalize"
+              className="px-3 py-1 bg-base-300 rounded-full text-sm capitalize"
             >
               {t.type.name}
             </span>
