@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { TeamContext } from "../context/TeamContext";
 import { useParams } from "react-router-dom";
 import { getPokemonById } from "../api/pokeapi";
 
 export default function PokemonDetail() {
   const { id } = useParams();
+  const { addToTeam, removeFromTeam, isOnTeam, teamFull } =
+    useContext(TeamContext);
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,9 +40,6 @@ export default function PokemonDetail() {
 
   return (
     <div className="max-w-xl mx-auto border bg-base-200 rounded-lg shadow-2xl py-4">
-      <button className="border-black rounded-2xl px-2 text-right bg-amber-800 text-white cursor-pointer">
-        Add to Team
-      </button>
       <div className="flex flex-col items-center">
         <img
           src={pokemon.sprites.other["official-artwork"].front_default}
@@ -72,6 +72,29 @@ export default function PokemonDetail() {
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Add/remove */}
+        <div>
+          {isOnTeam(pokemon.id) ? (
+            <button
+              onClick={() => removeFromTeam(pokemon.id)}
+              className="bg-red-400 hover:bg-red-600 hover:shadow-2xl text-white px-4 py2 rounded mt-4 cursor-pointer"
+            >
+              Remove from Team
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                const result = addToTeam(pokemon.id);
+                if (!result.success) alert(result.message);
+              }}
+              className="bg-green-400 hover:bg-green-600 hover:shadow-2xl text-white font-bold px-4 py2 rounded mt-4 cursor-pointer"
+              disabled={teamFull}
+            >
+              {teamFull ? "Team Full" : "Add to Team"}
+            </button>
+          )}
         </div>
       </div>
     </div>

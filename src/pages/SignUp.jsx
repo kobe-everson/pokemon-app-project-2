@@ -18,7 +18,7 @@ export default function SignUp() {
       return;
     }
 
-    navigate("/team");
+    navigate("/");
   };
 
   return (

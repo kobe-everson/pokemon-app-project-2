@@ -1,13 +1,15 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext } from "react";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || null;
+  });
 
   // Sign up function
   const signup = (email, password) => {
-    const users = JSON.parse(localStorage.getItem("users")) ?? [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
     if (users.some((user) => user.email === email)) {
       return { success: false, message: "Email already exists" };
@@ -28,7 +30,8 @@ export function AuthProvider({ children }) {
 
   // Login function
   const login = (email, password) => {
-    const users = JSON.parse(localStorage.getItem("users")) ?? [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    console.log(users);
     const userVerify = users.find(
       (user) => user.email === email && user.password === password,
     );
