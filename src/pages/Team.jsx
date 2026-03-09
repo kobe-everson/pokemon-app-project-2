@@ -42,8 +42,8 @@ export default function Team() {
 
   return (
     <div>
-      <h2 className="text-center text-3xl font-bold">Your Pokémon Team</h2>
-      <div className="grid grid-cols-3 gap-6">
+      <h2 className="text-center text-3xl font-bold pb-4">Your Pokémon Team</h2>
+      <div className="grid grid-cols-3 gap-6 px-[15%]">
         {pokemonData.map((p) => (
           <div
             key={p.id}
@@ -68,8 +68,8 @@ export default function Team() {
               ))}
             </div>
             <button
-              onClick={removeFromTeam(p.id)}
-              className="bg-red-400 hover:text-red-600 text-white px-4 py-1 rounded"
+              onClick={() => removeFromTeam(p.id)}
+              className="bg-red-400 hover:bg-red-600 text-white px-4 py-1 rounded cursor-pointer"
             >
               Remove
             </button>
